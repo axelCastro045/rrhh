@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axel Castro | Inteligencia que Potencia lo Humano</title>
+    
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Carga de la fuente Inter de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Carga de Lucide Icons (para los íconos) -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        /* Definición de la paleta de colores corporativos con Tailwind */
+        :root {
+            --color-metallic-gray: #4B5563; /* Gris Metálico - Tecnología y precisión */
+            --color-deep-blue: #1E3A8A;   /* Azul Profundo - Confianza y profesionalismo */
+            --color-light-blue: #3B82F6;  /* Celeste - Sinceridad */
+            --color-accent-gold: #FFD700; /* Dorado - Toque de distinción */
+            --color-whatsapp: #25D366;    /* WhatsApp Green */
+        }
+        
+        .bg-metallic-gray { background-color: var(--color-metallic-gray); }
+        .bg-deep-blue { background-color: var(--color-deep-blue); }
+        .bg-light-blue { background-color: var(--color-light-blue); }
+        .bg-accent-gold { background-color: var(--color-accent-gold); }
+        .bg-whatsapp { background-color: var(--color-whatsapp); }
+        .text-deep-blue { color: var(--color-deep-blue); }
+        .text-light-blue { color: var(--color-light-blue); }
+        .text-accent-gold { color: var(--color-accent-gold); }
+        .border-deep-blue { border-color: var(--color-deep-blue); }
+        
+        /* Tipografía Sans-serif moderna (Inter) */
+        body {
+            font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            background-color: #f8f9fb; /* Fondo muy claro para contraste */
+            scroll-behavior: smooth; /* Desplazamiento suave para anclas */
+        }
+
+        /* Animación sutil para el Slogan (Hero Section) */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .slogan-animate {
+            animation: fadeIn 1.5s ease-out 0.5s forwards;
+            opacity: 0;
+        }
+
+        /* Estilo para los iconos de Lucide */
+        .icon {
+            stroke-width: 1.7; /* Ligeramente más grueso */
+        }
+
+        /* Estilo para campos de formulario inválidos */
+        .form-invalid {
+            border-color: #EF4444; /* red-500 */
+            box-shadow: 0 0 0 2px #FCA5A5; /* ring-red-300 */
+        }
+
+        /* Personalización para el logo en modo oscuro o sobre fondo oscuro */
+        .logo-filter-dark {
+             filter: brightness(0) invert(1) !important; /* Blanco puro */
+        }
+        
+        /* Estilo para el fondo abstracto (dots pattern) */
+        .bg-pattern-dots {
+            background-image: radial-gradient(#d1d5db 1px, transparent 0);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Navbar / Header (Profesionalismo) -->
+    <header class="sticky top-0 z-30 bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            
+            <!-- Logo y Nombre -->
+            <a href="#" class="flex items-center space-x-2">
+                <img src="./11.png" alt="Logo de Axel Castro" class="h-20 md:h-200 w-300 object-contain">
+    
+            </a>
+            
+            <!-- Navegación Desktop -->
+            <nav class="hidden md:flex space-x-8 text-gray-600 font-medium">
+                <a href="#filosofia" class="hover:text-deep-blue transition duration-200 ease-in-out">Filosofía</a>
+                <a href="#sobre-mi" class="hover:text-deep-blue transition duration-200 ease-in-out">Sobre Mí</a>
+                <a href="#servicios" class="hover:text-deep-blue transition duration-200 ease-in-out">Servicios</a>
+                <a href="#diferencial" class="hover:text-deep-blue transition duration-200 ease-in-out">Diferencial</a>
+                <a href="#contacto" class="hover:text-deep-blue transition duration-200 ease-in-out">Contacto</a>
+            </nav>
+
+            <!-- Botón CTA (Visible en Desktop) -->
+            <a href="#contacto" class="hidden md:inline-flex bg-deep-blue text-white py-2.5 px-7 rounded-full font-semibold hover:bg-light-blue transition duration-300 shadow-md transform hover:scale-105">
+                Solicitar Asesoría
+            </a>
+
+            <!-- Botón de Menú Móvil -->
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-deep-blue">
+                <i data-lucide="menu" class="w-7 h-7"></i>
+            </button>
+        </div>
+
+        <!-- Menú Móvil Desplegable -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-xl py-4">
+            <nav class="flex flex-col space-y-3 px-4 text-gray-700 font-medium">
+                <a href="#filosofia" class="block py-2 px-3 rounded-md hover:bg-gray-50 hover:text-deep-blue transition">Filosofía</a>
+                <a href="#sobre-mi" class="block py-2 px-3 rounded-md hover:bg-gray-50 hover:text-deep-blue transition">Sobre Mí</a>
+                <a href="#servicios" class="block py-2 px-3 rounded-md hover:bg-gray-50 hover:text-deep-blue transition">Servicios</a>
+                <a href="#diferencial" class="block py-2 px-3 rounded-md hover:bg-gray-50 hover:text-deep-blue transition">Diferencial</a>
+                <a href="#contacto" class="block py-2 px-3 rounded-md hover:bg-gray-50 hover:text-deep-blue transition">Contacto</a>
+                <a href="#contacto" class="w-full text-center bg-deep-blue text-white py-2.5 px-7 mt-3 rounded-full font-semibold hover:bg-light-blue transition duration-300 shadow-md">
+                    Solicitar Asesoría
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- A. Hero Section (Sección Principal) -->
+        <section class="relative bg-gradient-to-br from-blue-50 to-indigo-100 pt-24 pb-36 text-center overflow-hidden">
+            
+            <!-- Fondo abstracto sutil -->
+            <div class="absolute inset-0 bg-pattern-dots opacity-10"></div>
+            
+            <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Subtítulo / Rol -->
+                <p class="text-lg text-light-blue font-semibold mb-3 tracking-wide uppercase drop-shadow-sm">Axel Castro | Consultor Estratégico & Psicólogo</p>
+                
+                <!-- Titular Principal -->
+                <h1 class="text-6xl sm:text-7xl font-extrabold tracking-tight text-gray-900 leading-tight drop-shadow-md">
+                    Inteligencia que Potencia lo Humano.
+                </h1>
+                <p class="mt-5 text-3xl sm:text-4xl text-metallic-gray font-light slogan-animate italic max-w-4xl mx-auto">
+                    "Diseñamos un futuro donde la tecnología sirve al bienestar y el crecimiento personal."
+                </p>
+
+                <!-- Breve Propuesta -->
+                <p class="mt-8 text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                    Integro la Inteligencia Artificial con una sólida base ética y empática para transformar la gestión de RR.HH. y la orientación vocacional, promoviendo decisiones justas y un desarrollo sostenible.
+                </p>
+
+                <!-- Acciones de Conversión -->
+                <div class="mt-12 flex justify-center space-x-4">
+                    <a href="#contacto" class="bg-deep-blue text-white py-3.5 px-10 text-xl rounded-full font-bold hover:bg-light-blue transition duration-300 shadow-xl transform hover:scale-105 active:scale-95">
+                        <i data-lucide="zap" class="w-5 h-5 inline-block mr-2"></i> Solicitar Asesoría
+                    </a>
+                    <a href="#sobre-mi" class="border border-deep-blue text-deep-blue py-3.5 px-10 text-xl rounded-full font-semibold hover:bg-deep-blue hover:text-white transition duration-300 shadow-lg transform hover:scale-105 active:scale-95">
+                        <i data-lucide="user" class="w-5 h-5 inline-block mr-2"></i> Saber Más
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- B. Sección "Mi Filosofía" (Reglas de Oro) -->
+        <section id="filosofia" class="py-24 bg-white border-b border-gray-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl font-bold text-deep-blue mb-6">Mi Filosofía: Las Reglas de Oro</h2>
+                <p class="text-xl text-metallic-gray mb-16 max-w-3xl mx-auto">
+                    Principios que guían cada proyecto, asegurando resultados significativos y éticos.
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-12">
+                    <!-- Regla de Oro 1 - Ética -->
+                    <div class="p-8 border-t-8 border-light-blue rounded-xl shadow-lg hover:shadow-2xl transition duration-300 text-left bg-gray-50 flex flex-col items-start transform hover:-translate-y-1">
+                        <i data-lucide="shield-check" class="icon w-12 h-12 text-light-blue bg-light-blue/10 p-3 rounded-full mb-6 shadow-md"></i>
+                        <h3 class="text-2xl font-semibold mb-3 text-metallic-gray">Transparencia y Ética Digital</h3>
+                        <p class="text-gray-600 text-lg leading-relaxed">
+                            **La IA debe ser clara, justa y confiable.** Enfatizamos una mirada ética en cada decisión, asegurando que la tecnología potencie la equidad y esté centrada en el bienestar de la persona. Tu confianza es nuestra prioridad.
+                        </p>
+                    </div>
+
+                    <!-- Regla de Oro 2 - Co-creación -->
+                    <div class="p-8 border-t-8 border-deep-blue rounded-xl shadow-lg hover:shadow-2xl transition duration-300 text-left bg-gray-50 flex flex-col items-start transform hover:-translate-y-1">
+                        <i data-lucide="drafting-compass" class="icon w-12 h-12 text-deep-blue bg-deep-blue/10 p-3 rounded-full mb-6 shadow-md"></i>
+                        <h3 class="text-2xl font-semibold mb-3 text-metallic-gray">Co-creación y Adaptación Continua</h3>
+                        <p class="text-gray-600 text-lg leading-relaxed">
+                            **Trabajamos contigo, no para ti.** Aplicamos el modelo **Test & Learn** mediante la **co-creación** continua. Esto garantiza que cada solución se adapte a tus necesidades reales y evolutivas, asegurando resultados tangibles y valiosos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- C. Sección "Sobre Mí" (Biografía con Foto) - MEJORA UI/UX -->
+        <section id="sobre-mi" class="py-24 bg-gradient-to-r from-white to-gray-50 border-b border-gray-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-16">
+                    
+                    <!-- Columna de Texto -->
+                    <div class="md:w-1/2 text-center md:text-left">
+                        <h2 class="text-4xl font-extrabold text-deep-blue mb-6 border-b-4 border-light-blue/50 pb-2 inline-block">Conoce a Axel Castro</h2>
+                        <p class="text-xl text-metallic-gray mb-6 leading-relaxed">
+                            Soy Axel Castro, consultor estratégico con una pasión por fusionar la **psicología humana con la inteligencia artificial**. Mi trayectoria se ha centrado en el desarrollo de soluciones innovadoras que no solo optimizan procesos, sino que también potencian el crecimiento y bienestar de las personas.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                            Mi objetivo es ser el puente entre el potencial de la tecnología y las necesidades reales del ámbito de RR.HH. y la orientación vocacional. Creo firmemente que la IA, aplicada con una visión ética y un profundo entendimiento humano, es la clave para un futuro más eficiente y empático.
+                        </p>
+                        <a href="#contacto" class="inline-flex items-center bg-light-blue text-white py-3 px-8 rounded-full font-semibold hover:bg-deep-blue transition duration-300 shadow-lg transform hover:scale-105 active:scale-95">
+                            <i data-lucide="send" class="w-5 h-5 mr-2"></i> Conectar con Axel
+                        </a>
+                    </div>
+                    
+                    <!-- Columna de Foto (Placeholder mejorado) -->
+                    <div class="md:w-1/2 flex justify-center md:justify-end relative">
+                        <div class="w-72 h-72 lg:w-96 lg:h-96 rounded-full bg-deep-blue/10 flex items-center justify-center overflow-hidden shadow-2xl border-4 border-deep-blue transform rotate-3 hover:rotate-0 transition duration-500 ease-in-out">
+                            
+                            <!-- Usa esta URL de placeholder para tu foto. Puedes cambiarla por tu URL real. -->
+                            <img src="https://via.placeholder.com/400x400?text=Tu+Foto+Aquí" alt="Foto de Perfil de Axel Castro" class="object-cover w-full h-full scale-105 hover:scale-100 transition duration-500 ease-in-out grayscale hover:grayscale-0">
+                        </div>
+                         <!-- Efecto de acento visual -->
+                        <div class="absolute -bottom-4 -left-4 md:bottom-8 md:left-8 bg-accent-gold w-24 h-24 rounded-full opacity-60 mix-blend-multiply filter blur-xl animate-pulse"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- D. Sección "Nuestros Servicios" (Grid de 3) -->
+        <section id="servicios" class="py-24 bg-gray-50 border-b border-t border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Nuestros Pilares de Innovación</h2>
+                    <p class="text-xl text-metallic-gray mb-16 max-w-3xl mx-auto">
+                        Aplicamos la inteligencia artificial con una visión humanista en tres áreas clave para impulsar el crecimiento y el bienestar.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <!-- Card 1: RRHH (Enfoque en Optimización) -->
+                    <a href="#rrhh-full-service" class="group block p-8 rounded-2xl shadow-xl bg-white hover:shadow-deep-blue/20 transition duration-500 border border-gray-100 hover:border-deep-blue transform hover:-translate-y-1">
+                        <div class="mb-4">
+                            <i data-lucide="briefcase" class="icon w-12 h-12 text-deep-blue group-hover:text-white bg-deep-blue/10 group-hover:bg-deep-blue p-3 rounded-full mb-3 transition duration-300 shadow-lg"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-deep-blue group-hover:text-deep-blue mb-3">
+                            <span class="border-b-2 border-transparent group-hover:border-deep-blue transition duration-300">
+                                Automatización RR.HH.
+                            </span>
+                        </h3>
+                        <p class="text-gray-600 text-base">
+                            Transforma la gestión de talento: automatiza procesos de selección y desarrollo, y libera a tu equipo para la estrategia humana.
+                        </p>
+                    </a>
+
+                    <!-- Card 2: Vocacional (Enfoque en Desarrollo Personal) -->
+                    <a href="#vocacional-full-service" class="group block p-8 rounded-2xl shadow-xl bg-white hover:shadow-light-blue/20 transition duration-500 border border-gray-100 hover:border-light-blue transform hover:-translate-y-1">
+                        <div class="mb-4">
+                            <i data-lucide="compass" class="icon w-12 h-12 text-light-blue group-hover:text-white bg-light-blue/10 group-hover:bg-light-blue p-3 rounded-full mb-3 transition duration-300 shadow-lg"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-light-blue group-hover:text-light-blue mb-3">
+                            <span class="border-b-2 border-transparent group-hover:border-light-blue transition duration-300">
+                                Orientación Vocacional IA
+                            </span>
+                        </h3>
+                        <p class="text-gray-600 text-base">
+                            Guía a jóvenes hacia decisiones de carrera informadas. Une el análisis de IA con el acompañamiento psicológico experto.
+                        </p>
+                    </a>
+
+                    <!-- Card 3: Asesoría Estratégica (Enfoque en Innovación) -->
+                    <a href="#contacto" class="group block p-8 rounded-2xl shadow-xl bg-white hover:shadow-metallic-gray/20 transition duration-500 border border-gray-100 hover:border-metallic-gray transform hover:-translate-y-1">
+                        <div class="mb-4">
+                            <i data-lucide="git-branch" class="icon w-12 h-12 text-metallic-gray group-hover:text-white bg-metallic-gray/10 group-hover:bg-metallic-gray p-3 rounded-full mb-3 transition duration-300 shadow-lg"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-metallic-gray group-hover:text-metallic-gray mb-3">
+                            <span class="border-b-2 border-transparent group-hover:border-metallic-gray transition duration-300">
+                                Asesoría Estratégica IA
+                            </span>
+                        </h3>
+                        <p class="text-gray-600 text-base">
+                            Diseñamos soluciones IA personalizadas desde cero. Co-crea con nosotros tu próximo producto o estrategia de transformación digital.
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- E. Sección "Nuestro Diferencial" -->
+        <section id="diferencial" class="py-24 bg-deep-blue text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <i data-lucide="lightbulb" class="icon w-12 h-12 text-light-blue mx-auto mb-4"></i>
+                <h2 class="text-4xl font-extrabold mb-4">La Tecnología al Servicio del Autoconocimiento.</h2>
+                <p class="text-2xl font-light max-w-3xl mx-auto italic">
+                    Nuestro diferencial es **Humanizar la Tecnología**. Combinamos la eficiencia tecnológica con experiencias únicas, poniendo la IA al servicio del autoconomiento y potenciando al profesional para alcanzar su máximo potencial.
+                </p>
+                <p class="mt-6 text-xl font-semibold text-light-blue">
+                    No solo optimizamos, transformamos.
+                </p>
+            </div>
+        </section>
+
+        <!-- F. Sección Detallada de Servicio 1: RR.HH. -->
+        <section id="rrhh-full-service" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <a href="#servicios" class="text-deep-blue hover:underline mb-8 inline-block text-lg font-medium">&larr; Volver a Servicios</a>
+                
+                <div class="flex flex-col md:flex-row items-start gap-12">
+                    <!-- Columna de Texto Detallado -->
+                    <div class="w-full md:w-3/5 text-left">
+                        <i data-lucide="briefcase" class="icon w-14 h-14 text-deep-blue bg-deep-blue/10 p-3 rounded-full mb-6 shadow-md"></i>
+                        <h2 class="text-4xl font-bold text-deep-blue mb-4">Asistencia Inteligente para RR.HH.</h2>
+                        <p class="text-gray-600 text-xl mb-8 leading-relaxed">
+                            Optimizamos los procesos de gestión de talento para que tu equipo de RR.HH. pueda dedicarse a lo que realmente importa: las personas. Integramos IA para automatizar tareas rutinarias, no para reemplazar la conexión humana.
+                        </p>
+                        
+                        <h3 class="text-2xl font-semibold text-metallic-gray mb-4">¿Qué hacemos exactamente?</h3>
+                        <ul class="space-y-4 text-gray-700 text-lg list-disc list-inside ml-4 marker:text-deep-blue">
+                            <li>**Automatización de Selección:** Filtramos CVs, identificamos *skills* clave y pre-seleccionamos candidatos utilizando modelos de IA avanzados, **reduciendo el tiempo de contratación en un 40%**.</li>
+                            <li>**Onboarding y Offboarding Inteligente:** Creamos flujos de trabajo automatizados y personalizados para garantizar la mejor experiencia, desde el primer día hasta la desvinculación, **mejorando la retención**.</li>
+                            <li>**Análisis Predictivo de Talento:** Utilizamos datos para predecir la rotación de personal, identificar riesgos de *burnout* y sugerir intervenciones proactivas en el clima laboral, **potenciando el compromiso**.</li>
+                            <li>**Planes de Desarrollo Personalizado:** Diseñamos rutas de carrera específicas para cada colaborador, combinando mentoría humana con herramientas de aprendizaje asistidas por IA, **acelerando el crecimiento profesional**.</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Columna de Contacto (CTA) -->
+                    <div class="w-full md:w-2/5 mt-8 md:mt-0 p-8 bg-deep-blue/5 rounded-2xl shadow-xl flex flex-col justify-between items-start border-t-4 border-deep-blue">
+                        <h4 class="text-2xl font-bold text-deep-blue mb-4">Impulsa tu Gestión de Talento</h4>
+                        <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                            Agenda una sesión de 15 minutos para que analicemos el estado actual de tus procesos de RR.HH. y la factibilidad de implementar soluciones inteligentes y éticas.
+                        </p>
+                        <a href="#contacto" class="w-full inline-flex justify-center items-center bg-deep-blue text-white py-3.5 px-6 rounded-full font-semibold hover:bg-light-blue transition duration-300 shadow-md transform hover:scale-[1.01] active:scale-95">
+                            <i data-lucide="mail" class="w-5 h-5 mr-2"></i> Contáctanos
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- G. Sección Detallada de Servicio 2: Vocacional -->
+        <section id="vocacional-full-service" class="py-20 bg-f8f9fb">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <a href="#servicios" class="text-light-blue hover:underline mb-8 inline-block text-lg font-medium">&larr; Volver a Servicios</a>
+                
+                <div class="flex flex-col md:flex-row-reverse items-start gap-12">
+                    <!-- Columna de Texto Detallado -->
+                    <div class="w-full md:w-3/5 text-left">
+                        <i data-lucide="graduation-cap" class="icon w-14 h-14 text-light-blue bg-light-blue/10 p-3 rounded-full mb-6 shadow-md"></i>
+                        <h2 class="text-4xl font-bold text-light-blue mb-4">Orientación Vocacional Inteligente</h2>
+                        <p class="text-gray-600 text-xl mb-8 leading-relaxed">
+                            Combinamos análisis predictivo de IA con un acompañamiento profesional y psicológico. Ayudamos a jóvenes (17-30 años) a tomar decisiones informadas sobre su futuro, basándose en sus habilidades, pasiones y las demandas del mercado.
+                        </p>
+                        
+                        <h3 class="text-2xl font-semibold text-metallic-gray mb-4">¿Qué hacemos exactamente?</h3>
+                        <ul class="space-y-4 text-gray-700 text-lg list-disc list-inside ml-4 marker:text-light-blue">
+                            <li>**Mapeo 360°:** Evaluamos intereses, habilidades, valores y tipo de personalidad para crear un perfil vocacional completo y objetivo, **maximizando la compatibilidad**.</li>
+                            <li>**Proyección de Mercado Laboral:** Usamos IA para analizar las tendencias de empleo, el crecimiento de industrias y la demanda de habilidades específicas en los próximos 5-10 años, **anticipando el futuro profesional**.</li>
+                            <li>**Rutas Educativas Personalizadas:** Creamos un mapa de estudio claro, incluyendo instituciones, costos y duración, alineado con las metas profesionales identificadas, **optimizando la inversión educativa**.</li>
+                            <li>**Sesiones de Co-creación:** El joven participa activamente en el diseño de su plan de acción, asegurando compromiso y claridad en cada paso de su trayectoria, **fomentando la autonomía**.</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Columna de Contacto (CTA) -->
+                    <div class="w-full md:w-2/5 mt-8 md:mt-0 p-8 bg-light-blue/5 rounded-2xl shadow-xl flex flex-col justify-between items-start border-t-4 border-light-blue">
+                        <h4 class="text-2xl font-bold text-light-blue mb-4">Define tu Camino Profesional</h4>
+                        <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                            Pide una primera conversación gratuita donde exploraremos tus inquietudes y definiremos cómo la orientación inteligente puede marcar la diferencia en tu futuro.
+                        </p>
+                        <a href="#contacto" class="w-full inline-flex justify-center items-center bg-light-blue text-white py-3.5 px-6 rounded-full font-semibold hover:bg-deep-blue transition duration-300 shadow-md transform hover:scale-[1.01] active:scale-95">
+                            <i data-lucide="mail" class="w-5 h-5 mr-2"></i> Contáctanos
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- H. Sección de Co-creación y Contacto (Formulario) -->
+        <section id="contacto" class="py-24 bg-gradient-to-br from-white to-gray-50 border-t border-gray-100">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-extrabold text-gray-900 text-center mb-6">Empecemos a Co-crear Juntos</h2>
+                <p class="text-xl text-metallic-gray text-center mb-12 max-w-2xl mx-auto">
+                    Cuéntanos tus necesidades, desafíos o ideas. Diseñaremos la solución perfecta.
+                </p>
+
+                <!-- Módulo de Propuesta de Co-creación (Formulario) -->
+                <div class="bg-white p-8 rounded-2xl shadow-2xl border-t-8 border-deep-blue">
+                    <h3 class="text-2xl font-bold text-deep-blue mb-6">Formulario de Contacto</h3>
+                    
+                    <!-- Formulario con ID para JavaScript -->
+                    <form id="contact-form" class="space-y-6" novalidate>
+                        <div>
+                            <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">Tu Nombre Completo</label>
+                            <input type="text" name="nombre" id="nombre"
+                                class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm p-3 focus:ring-deep-blue focus:border-deep-blue transition duration-200">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Corporativo/Personal</label>
+                            <input type="email" name="email" id="email"
+                                class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm p-3 focus:ring-deep-blue focus:border-deep-blue transition duration-200">
+                        </div>
+
+                        <!-- Mini-Encuesta -->
+                        <div>
+                            <label for="interes" class="block text-sm font-medium text-gray-700 mb-1">¿En qué área principal necesitas apoyo?</label>
+                            <select id="interes" name="interes"
+                                class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm p-3 focus:ring-deep-blue focus:border-deep-blue transition duration-200">
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="rrhh">Asistencia Inteligente para RR.HH. (Empresa)</option>
+                                <option value="vocacional">Orientación Vocacional Inteligente (Individual)</option>
+                                <option value="asesoria">Asesoría Estratégica IA / Co-creación de Soluciones</option>
+                                <option value="otro">Otro / Consulta General</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="mensaje" class="block text-sm font-medium text-gray-700 mb-1">Describe brevemente tu desafío o necesidad de co-creación:</label>
+                            <textarea id="mensaje" name="mensaje" rows="5"
+                                class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm p-3 focus:ring-deep-blue focus:border-deep-blue transition duration-200"></textarea>
+                        </div>
+
+                        <div>
+                            <button type="submit" id="form-submit-btn" class="w-full flex justify-center items-center py-3.5 px-4 border border-transparent rounded-full shadow-lg text-lg font-bold text-white bg-deep-blue hover:bg-light-blue transition duration-300 transform hover:scale-[1.01] active:scale-95">
+                                <i data-lucide="send" class="w-5 h-5 mr-2"></i> Enviar Solicitud y Agendar Conversación
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal de Éxito (Oculto por defecto) -->
+    <div id="success-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-xl shadow-2xl max-w-sm w-full p-8 text-center border-t-8 border-green-500">
+            <i data-lucide="check-circle" class="icon w-20 h-20 text-green-500 mx-auto mb-4 animate-bounce"></i>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">¡Mensaje enviado con éxito!</h3>
+            <p class="text-gray-600 mb-6">Nos pondremos en contacto a la brevedad. Saludos.</p>
+            <button id="close-success-modal" class="w-full bg-green-500 text-white py-2.5 px-4 rounded-full font-semibold hover:bg-green-600 transition duration-300 transform hover:scale-105">
+                Entendido
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal de Error (Oculto por defecto) -->
+    <div id="error-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-xl shadow-2xl max-w-sm w-full p-8 text-center border-t-8 border-red-500">
+            <i data-lucide="alert-triangle" class="icon w-20 h-20 text-red-500 mx-auto mb-4 animate-pulse"></i>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Ups, algo faltó...</h3>
+            <p class="text-gray-600 mb-4">Parece que te olvidaste de llenar algunos campos importantes. Por favor, revisa lo siguiente:</p>
+            
+            <!-- Lista de errores dinámicos -->
+            <ul id="error-list" class="text-red-600 text-left list-disc list-inside mb-6 space-y-1">
+                <!-- Los errores se insertarán aquí -->
+            </ul>
+            <button id="close-error-modal" class="w-full bg-red-500 text-white py-2.5 px-4 rounded-full font-semibold hover:bg-red-600 transition duration-300 transform hover:scale-105">
+                Intentar de Nuevo
+            </button>
+        </div>
+    </div>
+
+
+    <!-- Footer (AÑADIDO ÍCONOS DE CONTACTO ESPECÍFICOS) -->
+    <footer class="bg-metallic-gray text-white py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+            
+            <!-- Columna 1: Marca y Propósito -->
+            <div>
+                 <a href="#" class="flex items-center mb-4">
+                    <!-- Logo blanco para mejor contraste en el footer oscuro -->
+                    <img src="uploaded:11.png-1f536257-6aad-48b5-a89e-722750b980da" alt="Logo de Axel Castro" class="h-8 md:h-10 w-auto object-contain logo-filter-dark">
+                </a>
+                <p class="text-gray-300 text-sm leading-relaxed">
+                    "Inteligencia que potencia lo humano". Consultoría centrada en IA ética, RR.HH. y Orientación Vocacional.
+                </p>
+            </div>
+
+            <!-- Columna 2: Navegación -->
+            <div>
+                <h4 class="text-lg font-semibold mb-4 text-light-blue">Navegación</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#filosofia" class="hover:text-light-blue transition">Mi Filosofía</a></li>
+                    <li><a href="#sobre-mi" class="hover:text-light-blue transition">Sobre Mí</a></li>
+                    <li><a href="#servicios" class="hover:text-light-blue transition">Servicios Innovadores</a></li>
+                    <li><a href="#diferencial" class="hover:text-light-blue transition">Nuestro Diferencial</a></li>
+                    <li><a href="#contacto" class="hover:text-light-blue transition">Contacto y Co-creación</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna 3: Servicios Clave -->
+            <div>
+                <h4 class="text-lg font-semibold mb-4 text-light-blue">Servicios</h4>
+                <ul class="space-y-2 text-sm text-gray-300">
+                    <li><a href="#rrhh-full-service" class="hover:text-light-blue transition">Asistencia Inteligente RR.HH.</a></li>
+                    <li><a href="#vocacional-full-service" class="hover:text-light-blue transition">Orientación Vocacional Inteligente</a></li>
+                    <li><a href="#contacto" class="hover:text-light-blue transition">Asesoría Estratégica IA</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna 4: Conéctate (ÍCONOS DE CONTACTO MEJORADOS) -->
+            <div>
+                <h4 class="text-lg font-semibold mb-4 text-light-blue">Contacto Directo</h4>
+                <div class="flex flex-col space-y-3">
+                    
+                    <!-- Teléfono -->
+                    <a href="tel:+5491112345678" class="flex items-center space-x-2 text-gray-300 hover:text-light-blue transition">
+                        <i data-lucide="phone" class="icon w-5 h-5"></i>
+                        <span>+54 9 11 1234 5678</span>
+                    </a>
+
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/549264800000" target="_blank" class="flex items-center space-x-2 text-gray-300 hover:text-whatsapp transition">
+                        <i data-lucide="message-circle" class="icon w-5 h-5"></i>
+                        <span>WhatsApp (Escríbeme)</span>
+                    </a>
+
+                    <!-- Gmail (Correo) -->
+                    <a href="mailto:axel.castro@tucorreo.com" class="flex items-center space-x-2 text-gray-300 hover:text-light-blue transition">
+                        <i data-lucide="mail" class="icon w-5 h-5"></i>
+                        <span>axel.castro@tucorreo.com</span>
+                    </a>
+
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/in/axelcastro" target="_blank" class="flex items-center space-x-2 text-gray-300 hover:text-light-blue transition">
+                        <i data-lucide="linkedin" class="icon w-5 h-5"></i>
+                        <span>Mi Perfil de LinkedIn</span>
+                    </a>
+
+                </div>
+                <p class="mt-6 text-xs text-gray-400">&copy; 2024 Axel Castro. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Inicialización de Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <!-- Script de Menú Móvil -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = mobileMenu.querySelectorAll('a');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Cerrar menú móvil al hacer clic en un enlace
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        });
+    </script>
+
+    <!-- Script de Validación del Formulario y Modales -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Elementos del DOM
+            const contactForm = document.getElementById('contact-form');
+            
+            // Campos
+            const nombre = document.getElementById('nombre');
+            const email = document.getElementById('email');
+            const interes = document.getElementById('interes');
+            const mensaje = document.getElementById('mensaje');
+            const fields = [nombre, email, interes, mensaje];
+
+            // Modales
+            const successModal = document.getElementById('success-modal');
+            const errorModal = document.getElementById('error-modal');
+            const closeSuccessBtn = document.getElementById('close-success-modal');
+            const closeErrorBtn = document.getElementById('close-error-modal');
+            const errorList = document.getElementById('error-list');
+
+            // Regex simple para email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            // Ocultar Modales
+            closeSuccessBtn.addEventListener('click', () => successModal.classList.add('hidden'));
+            closeErrorBtn.addEventListener('click', () => errorModal.classList.add('hidden'));
+            
+            // Ocultar al hacer clic fuera del contenido del modal
+            successModal.addEventListener('click', (e) => {
+                if (e.target === successModal) successModal.classList.add('hidden');
+            });
+            errorModal.addEventListener('click', (e) => {
+                if (e.target === errorModal) errorModal.classList.add('hidden');
+            });
+
+
+            // Listener del Formulario
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault(); // Prevenir el envío real
+                
+                let errors = [];
+                
+                // 1. Resetear estilos de error
+                fields.forEach(field => field.classList.remove('form-invalid'));
+                errorList.innerHTML = ''; // Limpiar lista de errores
+
+                // 2. Validar Campos
+                if (nombre.value.trim() === '') {
+                    errors.push('Tu Nombre Completo');
+                    nombre.classList.add('form-invalid');
+                }
+                
+                if (email.value.trim() === '') {
+                    errors.push('Email');
+                    email.classList.add('form-invalid');
+                } else if (!emailRegex.test(email.value.trim())) {
+                    errors.push('Email (debe ser un formato válido)');
+                    email.classList.add('form-invalid');
+                }
+
+                if (interes.value === '') {
+                    errors.push('Área de apoyo');
+                    interes.classList.add('form-invalid');
+                }
+
+                if (mensaje.value.trim() === '') {
+                    errors.push('Descripción de tu desafío');
+                    mensaje.classList.add('form-invalid');
+                }
+
+                // 3. Mostrar Modal correspondiente
+                if (errors.length > 0) {
+                    // Hay errores
+                    errors.forEach(error => {
+                        const li = document.createElement('li');
+                        li.textContent = error;
+                        errorList.appendChild(li);
+                    });
+                    errorModal.classList.remove('hidden');
+                } else {
+                    // No hay errores (Éxito)
+                    // Como no hay backend, simplemente mostramos el modal de éxito y reseteamos el formulario.
+                    successModal.classList.remove('hidden');
+                    contactForm.reset(); // Limpiar el formulario
+                }
+            });
+        });
+    </script>
+</body>
+</html>
